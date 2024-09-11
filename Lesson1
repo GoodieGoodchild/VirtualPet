@@ -1,0 +1,103 @@
+Lesson 1: Setting Up the Project Structure
+
+Objective:
+
+Understand basic HTML structure.
+
+Set up the initial project structure.
+Create a simple layout for the virtual pet simulator.
+Activities:
+
+Create an HTML file and set up the basic structure.
+Add a title, headers, and an area to display pet stats.
+Include an image placeholder for the pet.
+Set up basic CSS for styling.
+Source Code:
+index.html
+
+html
+
+Copy code
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Virtual Pet Simulator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="game-container">
+        <h1>Virtual Pet Simulator</h1>
+
+        <!-- Display pet name and age -->
+        <h2 id="petInfoDisplay"></h2>
+
+        <div class="pet-container">
+            <img src="pet-happy.png" alt="Virtual Pet" id="petImage">
+            <div class="stats">
+                <p>Health: <span id="health">100</span></p>
+                <p>Happiness: <span id="happiness">100</span></p>
+                <p>Hunger: <span id="hunger">0</span></p>
+                <p>Thirst: <span id="thirst">0</span></p>
+                <p>Energy: <span id="energy">100</span></p>
+                <p>Fitness: <span id="fitness">100</span></p>
+                <p>Cleanliness: <span id="cleanliness">100</span></p>
+                <p>Coins: <span id="coins">0</span></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+styles.css
+
+css
+
+Copy code
+
+body {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.game-container {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    width: 350px;
+}
+
+#petInfoDisplay {
+    margin: 10px 0;
+    font-size: 28px;
+    color: #ff69b4;
+}
+
+.pet-container img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 5px solid #ffcc00;
+}
+
+.stats {
+    margin-top: 10px;
+    font-size: 18px;
+}
+
+Explanation:
+
+Set up the HTML structure for the game.
+Create a container for the pet image and stats.
+Style the elements using CSS for a clean and simple layout.
