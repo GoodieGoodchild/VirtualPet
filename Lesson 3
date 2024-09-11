@@ -1,0 +1,55 @@
+Lesson 3: Advanced Interactions
+Objective:
+Learn about random events and stat decay.
+Create functions that simulate the pet's needs and random events.
+Activities:
+Introduce intervals and timers in JavaScript.
+Create a decreaseStats() function to gradually decrease stats.
+Add random events that affect the pet's stats.
+Source Code:
+script.js (Add this to the existing script)
+
+javascript
+Copy code
+// Decrease stats over time with faster decay rates
+function decreaseStats() {
+    hunger += 7;
+    thirst += 7;
+    happiness -= 5;
+    cleanliness -= 4;
+
+    if (hunger > 100) hunger = 100;
+    if (thirst > 100) thirst = 100;
+    if (happiness < 0) happiness = 0;
+    if (cleanliness < 0) cleanliness = 0;
+
+    if (hunger >= 80 || thirst >= 80) {
+        health -= 10; // Health decreases more sharply if hunger or thirst is too high
+        happiness -= 10; // Happiness also decreases if pet is too hungry or thirsty
+    }
+
+    if (health < 0) health = 0; // Ensure health does not go below 0
+    updateStats();
+}
+
+// Call decreaseStats every 3 seconds to simulate more rapid needs
+setInterval(decreaseStats, 3000);
+
+// Function to handle random events like rain or sickness
+function randomEvent() {
+    const eventChance = Math.random();
+    if (eventChance < 0.2) {
+        alert("Oh no! Your pet got sick!");
+        health -= 30;
+        happiness -= 20;
+        updateStats();
+    } else if (eventChance < 0.4) {
+        alert("It's raining! Your pet feels a bit down.");
+        happiness -= 15;
+        updateStats();
+    }
+}
+setInterval(randomEvent, 20000); // Check for random events every 20 seconds
+Explanation:
+Introduced decreaseStats() to simulate ongoing needs.
+Added random events with penalties to make the game more challenging.
