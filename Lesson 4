@@ -1,0 +1,58 @@
+Lesson 4: Customizing the Pet Experience
+Objective:
+Learn how to customize the game with dynamic content.
+Implement background changes and pet name input.
+Activities:
+Use JavaScript to prompt for the pet's name and display it.
+Change backgrounds dynamically based on time or events.
+Allow students to choose their pet: yeti, dragon, or unicorn.
+Source Code:
+script.js (Add this to the existing script)
+
+javascript
+Copy code
+let petName = ""; // Variable to store the pet's name
+
+// Function to prompt for pet's name at the start
+function setPetName() {
+    petName = prompt("What's your pet's name?", "Sparkle");
+    if (petName) {
+        document.getElementById('petInfoDisplay').innerText = `${petName} (Age: ${age} days)`;
+    } else {
+        document.getElementById('petInfoDisplay').innerText = "Your Pet (Age: 0 days)";
+    }
+}
+
+// Function to toggle between day and night
+function changeBackground() {
+    if (dayTime) {
+        document.body.classList.remove('nighttime');
+        document.body.classList.add('daytime');
+    } else {
+        document.body.classList.remove('daytime');
+        document.body.classList.add('nighttime');
+    }
+}
+
+window.onload = function() {
+    setPetName(); // Prompt for pet name at the beginning
+    updateStats(); // Initialize stats display
+};
+styles.css (Add background styles)
+
+css
+Copy code
+/* Daytime background */
+.daytime {
+    background-image: url('daytime_image_for_chosen_pet.png'); 
+    background-color: #87CEEB; 
+}
+
+/* Nighttime background */
+.nighttime {
+    background-image: url('nighttime_image_for_chosen_pet.png'); 
+    background-color: #2F4F4F; 
+}
+Explanation:
+Students can now enter their pet's name, which will be displayed dynamically.
+Backgrounds change based on time or events to enhance the game atmosphere.
