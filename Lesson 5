@@ -1,0 +1,24 @@
+Lesson 5: Final Touches and Enhancements
+Objective:
+Add the final touches to make the game engaging.
+Introduce mini-games and additional pet actions.
+Activities:
+Introduce mini-games or shop functionalities.
+Allow students to add new images and actions.
+Refine the user interface and overall gameplay.
+Source Code:
+script.js (Add placeholder functions)
+
+javascript
+Copy code
+// Mini-game and shop placeholders
+function visitShop() {
+    alert("Welcome to the shop! You can buy food, toys, and medicine for your pet.");
+}
+
+function playMiniGame() {
+    alert("Starting mini-game... (Coming soon!)");
+}
+Explanation:
+Students can add new functionalities such as shops or mini-games.
+Encourage creativity by allowing them to design new features or interactions.
