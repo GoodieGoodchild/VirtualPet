@@ -1,0 +1,571 @@
+The document is split into html, css and javascript, replace your code as you go through the errors to fix the pages accordingly.
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pet Simulator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="game-container">
+        <!--<h1>Virtual Pet Simulator</h1>-->
+
+        <!-- Display pet name -->
+		<h2 id="petNameDisplay"></h2>
+		<h2 id="petAgeDisplay"></h2>
+        
+
+        <div class="pet-container">
+            <img src="pet-happy.png" alt="Virtual Pet" id="petImage">
+            <div class="stats">
+                <p>Health: <span id="health">100</span></p>
+                <p>Happiness: <span id="happiness">100</span></p>
+                <p>Hunger: <span id="hunger">0</span></p>
+                <p>Thirst: <span id="thirst">0</span></p>
+                <p>Energy: <span id="energy">100</span></p>
+                <p>Fitness: <span id="fitness">100</span></p>
+                <p>Cleanliness: <span id="cleanliness">100</span></p>
+                <p>Coins: <span id="coins">0</span></p>
+                <!-- Display pet age -->
+                <p>Age: <span id="age">0</span> days</p>
+            </div>
+        </div>
+        <div class="controls">
+            <button onclick="feedPet()">Feed</button>
+            <button onclick="giveWater()">Give Water</button></br>
+            <button onclick="playWithPet()">Play</button>
+            <button onclick="exercisePet()">Exercise</button></br>
+            <button onclick="cleanPet()">Clean</button>
+            <button onclick="putToSleep()">Sleep</button></br>
+            <button onclick="visitShop()">Visit Shop</button></br>
+            <button onclick="playMiniGame()">Play Mini-Game</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+	
+	<!-- Custom Alert Modal -->
+<div id="customAlert" class="modal">
+    <div class="modal-content">
+        <p id="alertMessage"></p>
+        <button onclick="closeAlert()">OK</button>
+    </div>
+</div>
+
+<!-- Custom Input Modal for Pet Name -->
+<div id="customInput" class="modal">
+    <div class="modal-content">
+        <p>What's your pet's name?</p>
+        <input type="text" id="petNameInput" placeholder="Type in your pet's name!" />
+        <button onclick="submitPetName()">Submit</button>
+    </div>
+</div>
+</body>
+</html>
+
+
+body {
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    transition: background-color 1s; 
+}
+
+/* Daytime background */
+.daytime {
+    background-image: url('daytime.png'); 
+    background-color: #87CEEB; 
+}
+
+/* Nighttime background */
+.nighttime {
+    background-image: url('night.png'); 
+    background-color: #2F4F4F; 
+}
+
+.game-container {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.8); 
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    width: 350px;
+}
+
+#petInfoDisplay {
+    margin: 10px 0;
+    font-size: 60px;
+    font-family: 'CustomFont'; /* Use custom font */
+    color: #ff69b4; 
+    text-shadow: 2px 2px 5px #000000; 
+}
+
+.pet-container {
+    margin-bottom: 20px;
+}
+
+.pet-container img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 5px solid #ffcc00;
+}
+
+.stats {
+    margin-top: 10px;
+    font-size: 18px;
+}
+
+.controls button {
+    padding: 10px 15px;
+    margin: 5px;
+    background-color: #ffcc00;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.controls button:hover {
+    background-color: #ff9900;
+}
+
+@font-face {
+  font-family: CustomFont;
+  src: url('baby puppy.otf');
+}
+
+#petNameDisplay {
+    margin: 10px 0;
+    font-size: 88px;
+    font-family: 'CustomFont'; /* Fun font for the pet's name */
+    color: #ff69b4; /* Bright color for the pet's name */
+    text-shadow: 2px 2px 5px #000000; /* Add some shadow for a fun effect */
+}
+
+#petAgeDisplay {
+    margin: 10px 0;
+    font-size: 44px;
+    font-family: 'CustomFont'; /* Fun font for the pet's name */
+    color: #0e86d4; /* Bright color for the pet's name */
+    text-shadow: 2px 2px 5px #000000; /* Add some shadow for a fun effect */
+}
+
+/* Custom Alert Modal Styles */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    background-color: rgba(0, 0, 0, 0.5); /* Black background with transparency */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+    text-align: center; /* Center the text */
+    border-radius: 10px;
+}
+
+
+.modal-content button:hover {
+    background-color: #ff9900;
+}
+
+/* Custom Input Modal Styles */
+.modal-content input {
+    padding: 10px;
+    margin-top: 10px;
+    width: 200px;
+    border-radius: 5px;
+    border: 1px solid #888;
+    font-size: 16px;
+}
+
+.modal-content button {
+    padding: 10px 20px;
+    background-color: #ffcc00;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 20px;
+}
+
+
+let dayTime = true; // Start with daytime
+let petName = ""; // Variable to store the pet's name
+let age = 0; // Variable to store the pet's age in days
+
+// Pet stats
+let health = 100; //full
+let happiness = 0; //empty
+let hunger = 0; //hungry
+let thirst = 0; //thirsty
+let energy = 100; //all the energy
+let fitness = 50; //half the fitness
+let cleanliness = 0; //dirty dirty dirty lol new born dirt.
+let coins = 0;
+
+// Function to toggle between day and night
+function toggleDayNight() {
+    dayTime = !dayTime; // Toggle the day/night state
+    changeBackground(); // Update the background
+}
+
+// Function to change the background based on the time of day
+function changeBackground() {
+    const body = document.body;
+    if (dayTime) {
+        body.style.backgroundImage = "url('daytime.png')"; // Set daytime image
+    } else {
+        body.style.backgroundImage = "url('night.png')"; // Set nighttime image
+    }
+}
+
+
+function petAgeAttributeSlider() {
+    let ageCategory;
+    let hungerRate, thirstRate, happinessRate, energyRate;
+
+    if (age <= 10) {
+        ageCategory = 'baby';
+        hungerRate = 10;
+        thirstRate = 8;
+        happinessRate = 5;
+        energyRate = 15; // Babies have a lot of energy
+    } else if (age <= 20) {
+        ageCategory = 'teen';
+        hungerRate = 8;
+        thirstRate = 7;
+        happinessRate = 6;
+        energyRate = 12; // Teens still have high energy
+    } else if (age <= 50) {
+        ageCategory = 'adult';
+        hungerRate = 6;
+        thirstRate = 5;
+        happinessRate = 4;
+        energyRate = 10; // Adults have moderate energy
+    } else {
+        ageCategory = 'old';
+        hungerRate = 4;
+        thirstRate = 3;
+        happinessRate = 3;
+        energyRate = 5; // Older pets have less energy
+    }
+
+    // Adjust stats based on age category
+    adjustStats(hungerRate, thirstRate, happinessRate, energyRate);
+}
+
+function adjustStats(hungerRate, thirstRate, happinessRate, energyRate) {
+    hunger += hungerRate;
+    thirst += thirstRate;
+    happiness -= happinessRate;
+    energy -= energyRate;
+
+    if (hunger > 100) hunger = 100;
+    if (thirst > 100) thirst = 100;
+    if (happiness < 0) happiness = 0;
+    if (energy < 0) energy = 0;
+
+    // Health decreases if hunger or thirst is too high
+    if (hunger >= 80 || thirst >= 80) {
+        health -= 10;
+        happiness -= 10;
+    }
+
+    if (health < 0) { health = 0; } // Ensure health does not go below 0
+    updateStats();
+	checkPetDeath(); // Check if the pet is dead after updating stats
+}
+
+// Function to prompt for pet's name at the start using a custom input modal
+function setPetName() {
+    document.getElementById('customInput').style.display = 'block'; // Show the custom input modal
+}
+
+// Function to handle the pet name submission
+function submitPetName() {
+    const petNameInput = document.getElementById('petNameInput').value; // Get the input value
+    if (petNameInput) {
+        petName = petNameInput; // Set the pet name
+        document.getElementById('petNameDisplay').innerText = petName; // Display the pet's name
+        document.getElementById('petAgeDisplay').innerText = age + " days"; // Display the pet's age
+    } else {
+        petName = "Your Pet"; // Default name if input is empty
+        document.getElementById('petNameDisplay').innerText = petName; // Display the default name
+        document.getElementById('petAgeDisplay').innerText = age + " days"; // Display the pet's age
+    }
+
+    document.getElementById('customInput').style.display = 'none'; // Hide the input modal after submission
+}
+
+// Function to increment pet age
+function incrementAge() {
+    age++;
+    document.getElementById('petAgeDisplay').innerText = age + " days"; // Update name and age display
+}
+
+// Call incrementAge every 10 seconds (1 day in game time)
+//setInterval(incrementAge, 10000); 
+
+// Function to update stats
+function updateStats() {
+    document.getElementById('health').innerText = health;
+    document.getElementById('happiness').innerText = happiness;
+    document.getElementById('hunger').innerText = hunger;
+    document.getElementById('thirst').innerText = thirst;
+    document.getElementById('energy').innerText = energy;
+    document.getElementById('fitness').innerText = fitness;
+    document.getElementById('cleanliness').innerText = cleanliness;
+    document.getElementById('coins').innerText = coins;
+}
+
+// Decrease stats over time with faster decay rates
+function decreaseStats() {
+	var statsChance = Math.random();
+	if (statsChance < 0.2) {
+		hunger += 2;
+		thirst += 2;
+		happiness -= 2;
+		cleanliness -= 2;
+	} else if (statsChance < 0.4) {
+		hunger += 4;
+		thirst += 3;
+		happiness -= 4;
+		cleanliness -= 3;
+	} else if (statsChance < 0.6) {
+		hunger += 6;
+		thirst += 6;
+		happiness -= 5;
+		cleanliness -= 5;
+	} else {
+		hunger += 1;
+		thirst += 1;
+		happiness -= 1;
+		cleanliness -= 1;
+	}
+    
+    if (hunger > 100) hunger = 100;
+    if (thirst > 100) thirst = 100;
+    if (happiness < 0) happiness = 0;
+    if (cleanliness < 0) cleanliness = 0;
+
+    if (hunger >= 80 && thirst >= 80) {
+        health -= 10; // Health decreases more sharply if hunger or thirst is too high
+        happiness -= 10; // Happiness also decreases if pet is too hungry or thirsty
+    } 
+
+	if (hunger <= 10 && thirst <= 10 && happiness >=100) {
+		health += 10; // Health increases more sharply if hunger or thirst is quenched and pet is happy
+	}
+
+    if (health < 0) health = 0; // Ensure health does not go below 0
+    updateStats();
+}
+
+// Call decreaseStats every 3 seconds to simulate more rapid needs
+//setInterval(decreaseStats, 3000);
+
+// Function to handle random events like rain or sickness
+function randomEvent() {
+    const eventChance = Math.random();
+    if (eventChance < 0.2) { // 20% chance for a random event
+        showCustomAlert("Oh no! Your pet got sick!");
+        health -= 30; // Increased penalty
+        happiness -= 20; // Affect happiness more
+        makePetSad(); // Make the pet sad due to sickness
+        decreaseStats();
+    } else if (eventChance < 0.4) {
+        showCustomAlert("It's raining! Your pet feels a bit down.");
+        happiness -= 15; // Increased penalty
+        makePetSad(); // Make the pet sad due to rain
+        decreaseStats();
+    } else if (eventChance < 0.5) {
+        showCustomAlert("Your pet stepped on a thorn! Ouch!");
+        health -= 10;
+        happiness -= 10;
+		makePetSad(); // Make the pet sad due to rain
+        decreaseStats();
+    }
+}
+
+// Function to check if the pet is dead
+function checkPetDeath() {
+    if (health <= 0 && hunger >= 100 && thirst >= 100 && happiness <= 0 && energy <= 0 && cleanliness <= 0) {
+        funnyDeathAlerts();
+    }
+}
+
+// Function to display a series of funny death alerts
+function funnyDeathAlerts() {
+    showCustomAlert("Uh-oh! Your pet is feeling a bit... *too* tired. Like, forever tired.");
+    setTimeout(() => {
+        showCustomAlert("Your pet is officially out of snacks, water, energy, and willpower. They tried, though!");
+    }, 2000);
+    setTimeout(() => {
+        showCustomAlert("In fact, your pet is now auditioning for a role in a zombie movie. Don't worry, they’ll nail it!");
+    }, 4000);
+    setTimeout(() => {
+        showCustomAlert("Rest in peace, little buddy. Maybe in the next life, they’ll get to eat all the cookies they deserve.");
+        setTimeout(() => {
+            document.location.reload(); // Reloads the page to reset the game
+        }, 2000);
+    }, 6000);
+}
+
+
+// Function to make the pet sad (called from within random events)
+function makePetSad() {
+    showAction('sad');
+}
+
+// Function to show different actions and images
+function showAction(action) {
+    const petImage = document.getElementById('petImage');
+    switch (action) {
+        case 'feeding':
+            petImage.src = 'pet-feeding.png'; // Change image to feeding
+            break;
+        case 'playing':
+            petImage.src = 'pet-playing.png'; // Change image to playing
+            break;
+        case 'cleaning':
+            petImage.src = 'pet-cleaning.png'; // Change image to cleaning
+            break;
+        case 'sleeping':
+            petImage.src = 'pet-sleeping.png'; // Change image to sleeping
+            break;
+        case 'drinking':
+            petImage.src = 'pet-drinking.png'; // New image for drinking
+            break;
+        case 'sad':
+            petImage.src = 'pet-sad.png'; // New image for sad
+            break;
+        case 'exercising':
+            petImage.src = 'pet-exercising.png'; // New image for exercising
+            break;
+        default:
+            petImage.src = 'pet-happy.png'; // Default to happy
+            break;
+    }
+
+    // Revert to the happy pet image after 1 second
+    setTimeout(() => {
+        petImage.src = 'pet-happy.png';
+    }, 3000);
+}
+
+// Pet action functions
+function feedPet() {
+    hunger -= 15;
+    happiness += 10;
+    cleanliness -= 5;
+    if (hunger < 0) hunger = 0;
+    updateStats();
+    showAction('feeding');
+}
+
+function giveWater() {
+    thirst -= 15;
+    cleanliness -= 5;
+    if (thirst < 0) thirst = 0;
+    updateStats();
+    showAction('drinking');
+}
+
+function playWithPet() {
+    happiness += 15;
+    hunger += 5;
+    health -= 5;
+    if (happiness > 100) happiness = 100;
+    if (health < 0) health = 0;
+    updateStats();
+    showAction('playing');
+}
+
+function exercisePet() {
+    fitness += 10;
+    energy -= 15;
+    hunger += 10;
+    if (fitness > 100) fitness = 100;
+    if (energy < 0) energy = 0;
+    updateStats();
+    showAction('exercising');
+}
+
+function cleanPet() {
+    cleanliness += 20;
+    health += 5;
+    if (cleanliness > 100) cleanliness = 100;
+    if (health > 100) health = 100;
+    updateStats();
+    showAction('cleaning');
+}
+
+function putToSleep() {
+    if (!dayTime) {
+        energy += 25;
+        happiness += 15;
+        if (energy > 100) energy = 100;
+        if (happiness > 100) happiness = 100;
+        updateStats();
+        showAction('sleeping');
+		const myTimeout = setTimeout(toggleDayNight, 5000);
+    } else {
+        alert("It's not bedtime yet!");
+    }
+}
+
+// Shop function with custom alert
+function visitShop() {
+    showCustomAlert("Welcome to the shop! You can buy food, toys, and medicine for your pet.");
+    // Implement shop logic here (e.g., add items to buy, deduct coins, etc.)
+}
+
+// Mini-game function with custom alert
+function playMiniGame() {
+    showCustomAlert("Starting mini-game... (Coming soon!)");
+    // Implement mini-game logic here (e.g., simple game mechanics, rewards, etc.)
+}
+
+// Initialize the game
+window.onload = function() {
+    changeBackground(); // Set the initial background on load
+    setPetName(); // Prompt for pet name at the beginning
+    updateStats(); // Initialize stats display
+	    // Start age increment and stat decay intervals after DOM is ready
+    setInterval(incrementAge, 30000); // Increment age every 10 seconds (1 day in game time)
+    setInterval(petAgeAttributeSlider, 3000); // Decrease stats every 3 seconds to simulate more rapid needs
+    setInterval(randomEvent, 20000); // Check for random events every 20 seconds
+
+    // Automatically toggle between day and night every 30 seconds (for demonstration)
+    setInterval(toggleDayNight, 15000); // Adjust time as needed for testing
+	setInterval(updateStats, 20000);
+};
+
+
+// Function to show custom alerts
+function showCustomAlert(message) {
+    document.getElementById('alertMessage').innerText = message;
+    document.getElementById('customAlert').style.display = 'block';
+}
+
+// Function to close the custom alert
+function closeAlert() {
+    document.getElementById('customAlert').style.display = 'none';
+}
