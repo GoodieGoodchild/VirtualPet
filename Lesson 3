@@ -10,7 +10,7 @@ Source Code:
 script.js (Add this to the existing script)
 
 javascript
-Copy code
+Copy the code from lines 14 - 52
 // Decrease stats over time with faster decay rates
 function decreaseStats() {
     hunger += 7;
